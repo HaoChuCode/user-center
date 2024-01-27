@@ -42,6 +42,14 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
   });
 }
 
+/** 查询用户列表 GET /api/users/list */
+export async function getUsers(options?: { [key: string]: any }) {
+  return request<API.CurrentUser[]>('/api/users/list', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {

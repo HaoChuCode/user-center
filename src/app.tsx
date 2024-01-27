@@ -2,8 +2,8 @@ import Footer from '@/components/Footer';
 import RightContent from '@/components/RightContent';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import { PageLoading, SettingDrawer } from '@ant-design/pro-components';
-import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
+import { PageLoading } from '@ant-design/pro-components';
+import type { RequestConfig } from 'umi';
 import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
@@ -58,7 +58,25 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+export const layout: ({
+  initialState,
+  setInitialState,
+}: {
+  initialState: any;
+  setInitialState: any;
+}) => {
+  childrenRender: (
+    children: any,
+    props: { location: { pathname: string | string[] } },
+  ) => JSX.Element;
+  waterMarkProps: { content: string | undefined };
+  rightContentRender: () => JSX.Element;
+  disableContentMargin: boolean;
+  footerRender: () => JSX.Element;
+  onPageChange: () => void;
+  links: JSX.Element[];
+  menuHeaderRender: undefined;
+} = ({ initialState, setInitialState }) => {
   return {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
@@ -98,19 +116,19 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       return (
         <>
           {children}
-          {!props.location?.pathname?.includes('/login') && (
-            <SettingDrawer
-              disableUrlParams
-              enableDarkTheme
-              settings={initialState?.settings}
-              onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
-                  ...preInitialState,
-                  settings,
-                }));
-              }}
-            />
-          )}
+          {/*{!props.location?.pathname?.includes('/login') && (*/}
+          {/*  <SettingDrawer*/}
+          {/*    disableUrlParams*/}
+          {/*    enableDarkTheme*/}
+          {/*    settings={initialState?.settings}*/}
+          {/*    onSettingChange={(settings) => {*/}
+          {/*      setInitialState((preInitialState) => ({*/}
+          {/*        ...preInitialState,*/}
+          {/*        settings,*/}
+          {/*      }));*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*)}*/}
         </>
       );
     },
