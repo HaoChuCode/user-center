@@ -78,6 +78,11 @@ const columns: ProColumns<API.CurrentUser>[] = [
     dataIndex: 'createTime',
     valueType: 'date',
   },
+  {
+    title: '注册编号',
+    dataIndex: 'registerCode',
+    copyable: true,
+  },
   // {
   //   disable: true,
   //   title: '标签',
@@ -126,11 +131,13 @@ const columns: ProColumns<API.CurrentUser>[] = [
 
 export default () => {
   const actionRef = useRef<ActionType>();
+
   return (
     <ProTable<API.CurrentUser>
       columns={columns}
       actionRef={actionRef}
       cardBordered
+      // @ts-ignore
       request={async (params, sort, filter) => {
         console.log(sort, filter);
         // await waitTime(2000);

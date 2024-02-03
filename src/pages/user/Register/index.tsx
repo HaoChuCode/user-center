@@ -1,12 +1,14 @@
 import Footer from '@/components/Footer';
 import { register } from '@/services/ant-design-pro/api';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, CodeOutlined, LoginOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
-import { message, Tabs } from 'antd';
+import { Button, message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { history } from 'umi';
+
 import styles from './index.less';
 import { SYSTEM_LOGO } from '@/contant';
+// @ts-ignore
+import { history } from 'umi';
 
 const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -20,13 +22,11 @@ const Register: React.FC = () => {
     }
     try {
       // 注册
-      const id = await register(values);
-
+      const res = await register(values);
       // @ts-ignore
-      if (id > 0) {
+      if (res) {
         const defaultRegisterSuccessMessage = '注册成功！';
         message.success(defaultRegisterSuccessMessage);
-
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
@@ -35,12 +35,10 @@ const Register: React.FC = () => {
           query,
         });
         return;
-      } else {
-        throw new Error(`register error id=${id}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       const defaultLoginFailureMessage = '注册失败，请重试！';
-      message.error(defaultLoginFailureMessage);
+      message.error(error.message ?? defaultLoginFailureMessage);
     }
   };
   const registerItems = [{ label: '账户密码注册', key: 'account' }];
@@ -55,7 +53,14 @@ const Register: React.FC = () => {
               submitText: '注册',
             },
           }}
-          subTitle={'一站式用户管理，安全、高效、智能，让用户体验更上一层楼！'}
+          subTitle={
+            <>
+              <p>一站式用户管理，安全、高效、智能，让用户体验更上一层楼！</p>
+              <Button type="primary" icon={<LoginOutlined />} href={'/user/login'}>
+                用户登录
+              </Button>
+            </>
+          }
           initialValues={{
             autoLogin: true,
           }}
@@ -77,6 +82,11 @@ const Register: React.FC = () => {
                   {
                     required: true,
                     message: '账号是必填项！',
+                  },
+                  {
+                    min: 4,
+                    type: 'string',
+                    message: '账号长度不小于4',
                   },
                 ]}
               />
@@ -115,6 +125,20 @@ const Register: React.FC = () => {
                     min: 6,
                     type: 'string',
                     message: '确认密码长度不小于6',
+                  },
+                ]}
+              />
+              <ProFormText
+                name="registerCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <CodeOutlined className={styles.prefixIcon} />,
+                }}
+                placeholder={'请输入注册编码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '注册编码是必填项！',
                   },
                 ]}
               />

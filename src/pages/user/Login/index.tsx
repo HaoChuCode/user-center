@@ -4,6 +4,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
+// @ts-ignore
 import { history, useModel } from 'umi';
 import styles from './index.less';
 import { SYSTEM_LOGO } from '@/contant';
@@ -29,7 +30,7 @@ const Login: React.FC = () => {
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
-      await setInitialState((s) => ({
+      await setInitialState((s: any) => ({
         ...s,
         currentUser: userInfo,
       }));

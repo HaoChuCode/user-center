@@ -15,8 +15,12 @@ const Footer: React.FC = () => {
         },
         {
           key: 'gitee',
-          title: <><GithubOutlined /> 浩初 HaoChu</>,
-          href: 'https://gitee.com/haochu_kf',
+          title: (
+            <>
+              <GithubOutlined /> 浩初 HaoChuCode
+            </>
+          ),
+          href: 'https://github.com/HaoChuCode',
           blankTarget: true,
         },
         {

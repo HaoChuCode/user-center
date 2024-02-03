@@ -4,6 +4,7 @@
 declare namespace API {
   type CurrentUser = {
     id: number;
+    registerCode: string;
     username: string;
     userAccount: string;
     avatar?: string;
@@ -16,6 +17,12 @@ declare namespace API {
     address: string;
   };
 
+  type BaseResponse<T> = {
+    data: T;
+    code: number;
+    message: string;
+    description: string;
+  };
   type LoginResult = {
     status?: string;
     type?: string;
@@ -67,6 +74,7 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     checkPassword?: string;
+    registerCode?: string;
     type?: string;
   };
 

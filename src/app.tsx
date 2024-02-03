@@ -3,7 +3,9 @@ import RightContent from '@/components/RightContent';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { PageLoading } from '@ant-design/pro-components';
+// @ts-ignore
 import type { RequestConfig } from 'umi';
+// @ts-ignore
 import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
@@ -52,6 +54,7 @@ export async function getInitialState(): Promise<{
   return {
     // @ts-ignore
     fetchUserInfo,
+    // @ts-ignore
     currentUser,
     settings: defaultSettings,
   };

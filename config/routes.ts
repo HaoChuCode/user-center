@@ -25,7 +25,7 @@ export default [
       { component: './404' },
     ],
   },
-  { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
+  // { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
   { path: '/', redirect: '/welcome' },
   { component: './404' },
 ];

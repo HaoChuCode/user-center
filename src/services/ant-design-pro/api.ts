@@ -1,10 +1,10 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from 'umi';
+import request from '@/plugins/globalRequest';
 
 /** 获取当前的用户 GET /api/users/current */
 export async function currentUser(options?: { [key: string]: any }) {
-  return request<API.CurrentUser>('/api/users/current', {
+  return request<API.BaseResponse<API.CurrentUser>>('/api/users/current', {
     method: 'GET',
     ...(options || {}),
   });
@@ -12,7 +12,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
+  return request<API.BaseResponse<number>>('/api/users/logout', {
     method: 'POST',
     ...(options || {}),
   });
@@ -20,7 +20,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/users/login */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/users/login', {
+  return request<API.BaseResponse<API.LoginResult>>('/api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
 
 /** 注册接口 POST /api/users/register */
 export async function register(body: API.RegisterParams, options?: { [key: string]: any }) {
-  return request<API.RegisterResult>('/api/users/register', {
+  return request<API.BaseResponse<API.RegisterResult>>('/api/users/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
 
 /** 查询用户列表 GET /api/users/list */
 export async function getUsers(options?: { [key: string]: any }) {
-  return request<API.CurrentUser[]>('/api/users/list', {
+  return request<API.BaseResponse<API.CurrentUser[]>>('/api/users/list', {
     method: 'GET',
     ...(options || {}),
   });
